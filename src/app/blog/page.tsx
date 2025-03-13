@@ -10,6 +10,7 @@ const posts = [
 // 3秒待機
 async function fetchPosts(){
   await new Promise((resolve) => setTimeout(resolve, 3000)); // 3秒待機
+  throw new Error('エラーが発生しました');
   return posts;
   }
 
