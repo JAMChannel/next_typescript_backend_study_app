@@ -1,4 +1,10 @@
 import React from 'react'
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "ブログ記事一覧",
+  description: "ブログ記事一覧です",
+};
 
 // ダミーデータ
 const posts = [
@@ -10,7 +16,7 @@ const posts = [
 // 3秒待機
 async function fetchPosts(){
   await new Promise((resolve) => setTimeout(resolve, 3000)); // 3秒待機
-  throw new Error('エラーが発生しました');
+  // throw new Error('エラーが発生しました');
   return posts;
   }
 

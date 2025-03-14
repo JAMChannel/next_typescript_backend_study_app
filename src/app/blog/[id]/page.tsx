@@ -7,6 +7,14 @@ interface PageProps {
   }
 }
 
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = params
+  return {
+    title: `ブログ記事ID: ${id}`,
+    description: `ブログ記事ID: ${id}の記事です`,
+  }
+}
+
 export default async function page({ params }: PageProps) {
   console.log(params)
   const { id } = params
