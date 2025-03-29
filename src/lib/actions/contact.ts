@@ -1,6 +1,7 @@
 'use server'
 import { redirect } from 'next/navigation'
 import { ContactSchema, ContactType } from '@/validations/contact'
+import { prisma } from '@/lib/prisma'
 
 // ActionStateの型定義
 type ActionState = {
@@ -34,6 +35,21 @@ export async function submitContactForm(
     }
   }
 
+  // DBに保存
+  // メールアドレスが存在してるか確認
+  const existingRecord = await prisma.contact.findUnique({
+    where: { email: email as string },
+  })
+  if (existingRecord) {
+    return { success: false, errors: { email: ['このメールアドレスは既に存在します'] } }
+  }
+
+  await prisma.contact.create({
+    data: {
+      name: name as string,
+      email: email as string,
+    },
+  })
 
   console.log(name, email)
   redirect('/contacts/complete')
